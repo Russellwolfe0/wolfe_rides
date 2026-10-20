@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wolfe Routes | Custom motorcycle cross-country trip plans</title>
+<meta name="description" content="Custom motorcycle cross-country trip plans from A.J. Wolfe, who has ridden Patagonia, Vietnam and the Great Divide.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;800&family=Public+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --basalt:#1d231c; --lichen:#d5d9c0; --moss:#4c5a37; --ochre:#dc9d1c; --tarn:#3d5b61;
+  --bg:#e4e7d2; --ink:#1d231c; --card:#d5d9c0; --line:#9aa282; --muted:#4a5242;
+  --head:"Bitter",Georgia,"Times New Roman",serif; --body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#161b15;--ink:#e4e7d2;--card:#1f261e;--line:#3a4434;--muted:#aab29a;color-scheme:dark}
+}
+:root[data-theme="dark"]{--bg:#161b15;--ink:#e4e7d2;--card:#1f261e;--line:#3a4434;--muted:#aab29a;color-scheme:dark}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.0625rem/1.65 var(--body);overflow-x:hidden}
+img{max-width:100%}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--ochre);outline-offset:3px}
+.wrap{width:min(1080px,100% - 2.5rem);margin-inline:auto}
+h1,h2,h3{font-family:var(--head);line-height:1.08;margin:0}
+h2{font-size:clamp(1.9rem,4.5vw,2.9rem);font-weight:800;letter-spacing:-.01em}
+p{margin:0 0 1em;max-width:62ch}
+
+/* hero */
+.hero{position:relative;background:var(--basalt);color:var(--lichen);overflow:hidden;min-height:92vh;display:flex;flex-direction:column}
+.topo{position:absolute;inset:-5%;width:110%;height:110%;opacity:.55;pointer-events:none}
+.topo path,.topo ellipse{fill:none;stroke:var(--moss);stroke-width:1.4}
+.topo .hi{stroke:var(--ochre);stroke-width:1.8;opacity:.85}
+@media (prefers-reduced-motion:no-preference){
+  .topo{animation:drift 60s ease-in-out infinite alternate}
+  @keyframes drift{to{transform:translate(-2%,-2%) scale(1.03)}}
+}
+nav{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center;padding:1.25rem 0}
+.brand{font:800 1.25rem var(--head);text-decoration:none;color:var(--lichen)}
+nav ul{display:flex;gap:1.5rem;list-style:none;margin:0;padding:0;font-weight:600;font-size:.95rem}
+nav a{text-decoration:none;color:var(--lichen);padding:.4rem 0}
+nav a:hover{color:var(--ochre)}
+.hero-body{position:relative;z-index:2;margin:auto 0;padding:3rem 0 4.5rem}
+.hero h1{font-size:clamp(2.8rem,9vw,6.4rem);font-weight:800;letter-spacing:-.025em;max-width:13ch}
+.hero p.lede{font-size:clamp(1.1rem,2.2vw,1.4rem);max-width:34em;margin:1.5rem 0 2rem;color:#e4e7d2}
+.btn{display:inline-block;background:var(--ochre);color:var(--basalt);font:600 1.05rem var(--body);padding:.95rem 1.7rem;border:0;border-radius:3px;text-decoration:none;cursor:pointer}
+.btn:hover{background:#efb43a}
+.coords{position:absolute;right:1.25rem;bottom:1rem;z-index:2;font:400 .8rem var(--body);color:var(--moss);color:#8d9a74}
+
+section{padding:5.5rem 0}
+.intro{display:grid;grid-template-columns:1fr 1.3fr;gap:3rem;align-items:start}
+.intro .ph,.about .ph{aspect-ratio:4/5}
+
+/* photo placeholders */
+.ph{position:relative;background:repeating-linear-gradient(135deg,var(--card) 0 14px,var(--bg) 14px 28px);border:1.5px dashed var(--line);display:grid;place-items:center;color:var(--muted);font-size:.9rem;text-align:center;padding:1rem;overflow:hidden}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+
+/* trips */
+.trips{background:var(--card);border-block:1.5px solid var(--line)}
+.trips header{display:flex;justify-content:space-between;align-items:end;gap:2rem;flex-wrap:wrap;margin-bottom:3rem}
+.trip-list{display:grid;gap:3.5rem}
+.trip{display:grid;grid-template-columns:1.15fr 1fr;gap:2.5rem;align-items:center}
+.trip:nth-child(even){grid-template-columns:1fr 1.15fr}
+.trip:nth-child(even) .ph{order:2}
+.trip .ph{aspect-ratio:3/2}
+.trip h3{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;margin-bottom:.35rem}
+.where{font-weight:600;color:var(--tarn);margin-bottom:.8rem}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .where{color:#8fb3ba}}
+.tags{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;gap:.5rem}
+.tags li{border:1.5px solid var(--line);padding:.2rem .75rem;border-radius:99px;font-size:.88rem}
+.more{border-top:1.5px solid var(--line);padding-top:1.5rem;color:var(--muted)}
+
+/* process */
+.steps{counter-reset:s;list-style:none;padding:0;margin:3rem 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0;border-left:3px solid var(--moss)}
+.steps li{counter-increment:s;padding:0 1.5rem 1.5rem;position:relative}
+.steps li::before{content:counter(s);position:absolute;left:-1.05rem;top:0;width:1.8rem;height:1.8rem;border-radius:50%;background:var(--ochre);color:var(--basalt);font:800 .95rem var(--head);display:grid;place-items:center}
+.steps h3{font-size:1.25rem;margin:0 0 .4rem;padding-left:1.2rem}
+.steps p{padding-left:1.2rem;font-size:1rem;color:var(--muted)}
+
+/* about */
+.about{display:grid;grid-template-columns:1.3fr 1fr;gap:3rem;align-items:center}
+.about blockquote{margin:1.5rem 0 0;padding-left:1.25rem;border-left:4px solid var(--ochre);font:500 1.25rem/1.45 var(--head)}
+
+/* contact */
+.contact{background:var(--basalt);color:var(--lichen)}
+.contact h2{margin-bottom:.8rem}
+.contact p{color:#d5d9c0}
+form{display:grid;gap:1.1rem;max-width:640px;margin-top:2rem}
+label{display:grid;gap:.4rem;font-weight:600;font-size:.95rem}
+input,textarea,select{font:400 1rem var(--body);padding:.8rem .9rem;border:1.5px solid #5a6648;border-radius:3px;background:#262e24;color:#e4e7d2;width:100%}
+textarea{min-height:140px;resize:vertical}
+.note{font-size:.9rem;color:#a9b295;margin-top:.5rem}
+footer{background:#141913;color:#8d9a74;padding:1.8rem 0;font-size:.9rem}
+
+@media (max-width:760px){
+  nav ul{gap:1rem;font-size:.85rem}
+  .intro,.about,.trip,.trip:nth-child(even){grid-template-columns:1fr}
+  .trip:nth-child(even) .ph{order:0}
+  section{padding:4rem 0}
+}
+</style>
+</head>
+<body>
+
+<header class="hero" id="top">
+  <svg class="topo" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs>
+      <filter id="wob" x="-20%" y="-20%" width="140%" height="140%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.006 0.009" numOctaves="3" seed="7" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="140"/>
+      </filter>
+    </defs>
+    <g filter="url(#wob)">
+      <g transform="translate(820 330)">
+        <ellipse rx="40" ry="26"/><ellipse rx="85" ry="58"/><ellipse rx="135" ry="92"/><ellipse class="hi" rx="190" ry="130"/>
+        <ellipse rx="250" ry="172"/><ellipse rx="315" ry="215"/><ellipse class="hi" rx="385" ry="262"/>
+        <ellipse rx="460" ry="310"/><ellipse rx="540" ry="362"/><ellipse class="hi" rx="625" ry="420"/><ellipse rx="715" ry="480"/>
+      </g>
+      <g transform="translate(180 700)">
+        <ellipse rx="50" ry="34"/><ellipse rx="110" ry="75"/><ellipse rx="180" ry="120"/><ellipse rx="260" ry="170"/><ellipse rx="350" ry="225"/>
+      </g>
+    </g>
+  </svg>
+  <div class="wrap" style="display:flex;flex-direction:column;flex:1;position:relative">
+    <nav aria-label="Main">
+      <a class="brand" href="#top">Wolfe Routes</a>
+      <ul>
+        <li><a href="#trips">Trips</a></li>
+        <li><a href="#process">How it works</a></li>
+        <li><a href="#about">About A.J.</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="hero-body">
+      <h1>Your route, ridden first.</h1>
+      <p class="lede">Custom motorcycle cross-country trip plans from A.J. Wolfe, who has ridden Patagonia, Vietnam and the Great Divide and knows which roads are worth your time.</p>
+      <a class="btn" href="#contact">Request a custom plan</a>
+    </div>
+    <span class="coords">Patagonia · Vietnam · Great Divide</span>
+  </div>
+</header>
+
+<main>
+<section class="intro wrap" aria-labelledby="why">
+  <div class="ph" data-slot="portrait">Photo: A.J. on the bike</div>
+  <div>
+    <h2 id="why">A trip plan built around how you ride.</h2>
+    <p style="margin-top:1.5rem">Long-distance motorcycle travel goes wrong in small ways: a fuel gap you didn’t see coming, a border that closes early, a “shortcut” that turns into 80 miles of sand. A.J. has hit those problems so you don’t have to.</p>
+    <p>Each plan is written for you: your bike, your experience, how many days you have, and how rough you want the road to be. You get the route, the stops, and the notes that only come from having been there.</p>
+  </div>
+</section>
+
+<section class="trips" id="trips" aria-labelledby="trips-h">
+  <div class="wrap">
+    <header>
+      <h2 id="trips-h">Where A.J. has ridden</h2>
+      <p style="margin:0;color:var(--muted)">Custom plans are available for these routes and others.</p>
+    </header>
+    <div class="trip-list">
+      <article class="trip">
+        <div class="ph" data-slot="patagonia">Photo: Patagonia</div>
+        <div>
+          <h3>Patagonia</h3>
+          <p class="where">Southern Argentina and Chile</p>
+          <p>Gravel, wind and very long distances between fuel stops. A plan here is mostly about timing, fuel and picking the right days to cross.</p>
+          <ul class="tags"><li>Gravel</li><li>Remote</li><li>Fuel planning</li></ul>
+        </div>
+      </article>
+      <article class="trip">
+        <div class="ph" data-slot="vietnam">Photo: Vietnam</div>
+        <div>
+          <h3>Vietnam</h3>
+          <p class="where">North to south by road</p>
+          <p>Mountain passes, coastal highways and small towns with great food. A plan covers routing, rental or shipping options and where to slow down.</p>
+          <ul class="tags"><li>Mountain roads</li><li>Culture</li><li>Rental or ship</li></ul>
+        </div>
+      </article>
+      <article class="trip">
+        <div class="ph" data-slot="great-divide">Photo: Great Divide</div>
+        <div>
+          <h3>The Great Divide</h3>
+          <p class="where">Along the Continental Divide</p>
+          <p>Backcountry dirt, high passes and towns that are days apart. A plan breaks it into rideable days with resupply, lodging and bailout points.</p>
+          <ul class="tags"><li>Dirt</li><li>Backcountry</li><li>Multi-week</li></ul>
+        </div>
+      </article>
+    </div>
+    <p class="more" style="margin-top:3.5rem;max-width:none">And more. Have a route in mind that isn’t listed? <a href="#contact"><strong>Tell A.J. where you want to go.</strong></a></p>
+  </div>
+</section>
+
+<section class="wrap" id="process" aria-labelledby="proc-h">
+  <h2 id="proc-h">How a custom plan works</h2>
+  <ol class="steps">
+    <li><h3>Tell A.J. about the trip</h3><p>Where you want to ride, your bike, your dates and your experience.</p></li>
+    <li><h3>Talk it through</h3><p>A short call or email thread to settle the route style and pace.</p></li>
+    <li><h3>Get your plan</h3><p>Day-by-day route, fuel and lodging stops, and gear and paperwork notes.</p></li>
+    <li><h3>Ride it</h3><p>Questions on the road? Ask A.J. before you leave.</p></li>
+  </ol>
+</section>
+
+<section class="about wrap" id="about" aria-labelledby="about-h" style="border-top:1.5px solid var(--line)">
+  <div>
+    <h2 id="about-h">About A.J. Wolfe</h2>
+    <p style="margin-top:1.5rem">A.J. has ridden motorcycles across Patagonia, Vietnam and the Great Divide, along with plenty of other roads and trails. Wolfe Routes is how he shares what he learned so your trip starts with a plan that has already been tested.</p>
+    <blockquote>The best trips aren’t the ones with no surprises. They’re the ones where the surprises are the good kind.</blockquote>
+  </div>
+  <div class="ph" data-slot="about">Photo: A.J.</div>
+</section>
+
+<section class="contact" id="contact" aria-labelledby="contact-h">
+  <div class="wrap">
+    <h2 id="contact-h">Request a custom plan</h2>
+    <p>Share a few details and A.J. will get back to you with questions and next steps.</p>
+    <form id="f">
+      <label>Your name<input name="name" required autocomplete="name"></label>
+      <label>Your email<input name="email" type="email" required autocomplete="email"></label>
+      <label>Where do you want to ride?<input name="where" required placeholder="Route, region or country"></label>
+      <label>Bike and experience<input name="bike" placeholder="e.g. adventure bike, 5 years riding"></label>
+      <label>Anything else A.J. should know?<textarea name="msg" placeholder="Dates, trip length, riding style"></textarea></label>
+      <div><button class="btn" type="submit">Send request</button><p class="note" id="status" role="status"></p></div>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap">© <span id="yr">2026</span> Wolfe Routes. Ride safe and wear your gear.</div></footer>
+
+<script>
+(function(){
+  var EMAIL="aj@example.com"; // replace with A.J.'s real email
+  document.getElementById("yr").textContent=new Date().getFullYear();
+  document.getElementById("f").addEventListener("submit",function(e){
+    e.preventDefault();
+    var d=new FormData(e.target);
+    var body="Name: "+d.get("name")+"\nEmail: "+d.get("email")+"\nRoute: "+d.get("where")+"\nBike/experience: "+d.get("bike")+"\n\n"+d.get("msg");
+    window.location.href="mailto:"+EMAIL+"?subject="+encodeURIComponent("Custom trip plan request from "+d.get("name"))+"&body="+encodeURIComponent(body);
+    document.getElementById("status").textContent="Your email app should open with the request filled in.";
+  });
+})();
+</script>
+</body>
+</html>
